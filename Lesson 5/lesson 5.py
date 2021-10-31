@@ -1,17 +1,24 @@
+#!/usr/bin/env python
 import argparse
+import json
 
-book = {
-    'Roman': 89997771313,
-    'Ivan': 89107645343,
-    'Semen': 845673456,
-    'Fedor': 834563456
-}
+FILEPATH = 'Lesson 5/phonebook.json'
+
+
+def load_json(filepath: str) -> dict:
+    dct = None
+    with open(filepath, 'r') as f:
+        dct = json.load(f)
+    return dct
+
+
+book = load_json(FILEPATH)
 
 parser = argparse.ArgumentParser(description='This is parser \
                                              for telephone book')
 parser.add_argument('-a', '--add', dest='param1')
 parser.add_argument('-d', '--delete', dest='param2')
-parser.add_argument('-s', '--save', dest='param3')
+parser.add_argument('-s', '--show', dest='param3')
 
 args = parser.parse_args()
 
@@ -33,8 +40,21 @@ def action_on_param2(name: str):
         print(f'Такого контакта нет в книге')
 
 
+def action_on_param3():
+    for name, phone in book.items():
+        print(f'{name}: {phone}')
+
+
+def save_changes():
+    with open(FILEPATH, 'w') as f:
+        json.dump(book, f)
+
+
 # Dima:894234324
 if args.param1:
     action_on_param1(args.param1)
 elif args.param2:
     action_on_param2(args.param2)
+elif args.param3:
+    action_on_param3()
+save_changes()
