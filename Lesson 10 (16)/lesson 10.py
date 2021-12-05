@@ -1,3 +1,5 @@
+from math import pi
+
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
@@ -88,11 +90,48 @@ class Rectangular(Shape):
 
 class Square(Rectangular):
     def __init__(self, bottom_left: Point, top_right: Point):
-        a = top_right.x - bottom_left.x
-        b = top_right.y - bottom_left.y
-        if a != b:
+        self.a = top_right.x - bottom_left.x
+        self.b = top_right.y - bottom_left.y
+        if self.a != self.b:
             raise Exception('This is not a square')
         super(Square, self).__init__(bottom_left, top_right)
+
+    def area(self):
+        return self.a ** 2
+
+    def perimeter(self):
+        return 4 * self.a
+
+
+class Circle(Shape):
+    def __init__(self, center: Point, radius: float):
+        super().__init__()
+        self.center = center
+        self.radius = radius
+
+    def area(self):
+        return pi * self.radius ** 2
+
+    def perimeter(self):
+        return 2 * pi * self.radius
+
+    def bounding_box(self) -> Rectangular:
+        bottom_left = Point(
+            self.center.x - self.radius,
+            self.center.y - self.radius
+        )
+        top_right = Point(
+            self.center.x + self.radius,
+            self.center.y + self.radius
+        )
+        return Rectangular(bottom_left, top_right)
+
+
+class Triangle(Shape):
+    def __init__(self, p1: Point, p2: Point, p3: Point):
+        self.p1 = p1
+        self.p2 = p2
+        self.p3 = p3
 
 p1 = Point(1, 1)
 p2 = Point(3, 4)
@@ -105,6 +144,11 @@ print(rect)
 print(type(rect))
 
 sq = Square(Point(), Point(4,4))
+
+c = Circle(Point(3,3), 1)
+print(c.area())
+print(c.perimeter())
+print(c.bounding_box().top_right)
 
 
 
