@@ -16,10 +16,9 @@ def on_button():
 
 root['bg'] = '#fafafa'
 root.title('Example app')
-root.geometry('300x250')
+root.geometry('900x900')
 
-root.resizable(width=False, height=False)
-
+root.resizable(width=True, height=True)
 
 fig = Figure(figsize=(5, 4), dpi=100)
 t = np.arange(0, 3, .01)
@@ -61,6 +60,7 @@ btn.pack()
 
 info = Label(frame_bottom, text='Calculator', bg='#ffb700', font=40)
 info.pack()
+
 
 
 root.mainloop()
