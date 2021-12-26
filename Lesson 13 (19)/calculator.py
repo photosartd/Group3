@@ -22,6 +22,13 @@ def on_button_eq_pressed():
     main_label['text'] = str(new_text)
 
 
+def on_button_delete():
+    # взять текст и добавить 1
+    text = main_label.cget('text')
+    new_text = ''
+    main_label['text'] = str(new_text)
+
+
 root = Tk()
 
 root['bg'] = '#5d3954'
@@ -39,18 +46,24 @@ frame_bottom.place(relwidth=0.9, relheight=0.6, rely=0.35,
 main_label = Label(frame_top, text='', bg='#FFFFFF', font=24)
 main_label.place(relwidth=0.9, relheight=0.6, rely=0.2,
                  relx=0.05)
-
-button_1 = Button(frame_bottom, text='1', bg='#dad871', font=24,
-                  command=lambda: on_button_number_pressed(1))
-button_1.grid(row=0, column=0, padx=5, pady=5, ipadx=10, ipady=10)
-button_2 = Button(frame_bottom, text='2', bg='#dad871', font=24,
-                  command=lambda: on_button_number_pressed(2))
-button_2.grid(row=0, column=1, pady=2)
+numbers = list(range(1, 10)) #[1, 2, ... 9]
+buttons = []
+for row in range(3):
+    for col in range(3):
+        num = 3 * row + col + 1
+        button = Button(frame_bottom, text=str(numbers[num - 1]), bg='#dad871', font=24,
+                        command=lambda: on_button_number_pressed(numbers[num - 1]))
+        button.grid(row=row, column=col, padx=5, pady=5, ipadx=10, ipady=10)
+        buttons.append(button)
+print(buttons)
 button_3 = Button(frame_bottom, text='*', bg='#dad871', font=24,
                   command=on_button_mult_pressed)
-button_3.grid(row=1, column=0, pady=2)
+button_3.grid(row=3, column=0, pady=2)
 button_4 = Button(frame_bottom, text='=', bg='#dad871', font=24,
                   command=on_button_eq_pressed)
-button_4.grid(row=1, column=1, pady=2)
+button_4.grid(row=3, column=1, pady=2)
+button_delete = Button(frame_bottom, text='CE', bg='#dad871', font=24,
+                       command=on_button_delete)
+button_delete.grid(row=3, column=2, pady=2)
 
 root.mainloop()

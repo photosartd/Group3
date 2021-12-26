@@ -58,7 +58,7 @@ formula_field.pack()
 btn = Button(frame_top, text='Calculate', command=on_button)
 btn.pack()
 
-info = Label(frame_bottom, text='Calculator', bg='#ffb700', font=40)
+info = Label(frame_bottom, text='Calculator', bg='#♦', font=40)
 info.pack()
 
 
